@@ -1,5 +1,6 @@
 package com.example.vmo_project.service;
 
+import com.example.vmo_project.ConstantError;
 import com.example.vmo_project.dto.PersonDto;
 import com.example.vmo_project.entity.Person;
 import com.example.vmo_project.exception.NotFoundException;
@@ -37,7 +38,7 @@ public class PersonService {
                 .birthDate(LocalDate.parse(request.getBirthDate(), formatter))
                 .gender(request.isGender())
                 .apartment(apartmentRepository.findById(request.getApartmentId()).orElseThrow(() -> {
-                    throw new NotFoundException("Not found apartment with id = " + request.getApartmentId());
+                    throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + request.getApartmentId());
                 }))
                 .build();
         personRepository.save(person);
@@ -46,7 +47,7 @@ public class PersonService {
 
     public PersonDto update(Long id) {
         Person person = personRepository.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Not found person with id = " + id);
+            throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + id);
         });
         person.setApartment(null);
         personRepository.save(person);

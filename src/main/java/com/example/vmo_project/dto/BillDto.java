@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class BillDto {
     private Long id;
-    private Float number;
-    private Double total;
+    private Double electricityNumber;
+    private Double waterNumber;
     private LocalDateTime paidDate;
     private boolean status;
     private Long apartmentId;
@@ -25,8 +25,8 @@ public class BillDto {
 
     public BillDto(Bill entity) {
         this.setId(entity.getId());
-        this.number = entity.getNumber();
-        this.total = entity.getTotal();
+        this.electricityNumber = entity.getElectricityNumber();
+        this.waterNumber = entity.getWaterNumber();
         this.paidDate = entity.getPaidDate();
         this.status = entity.isStatus();
         this.apartmentId = entity.getApartment().getId();

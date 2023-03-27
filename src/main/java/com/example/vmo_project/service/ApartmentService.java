@@ -1,5 +1,6 @@
 package com.example.vmo_project.service;
 
+import com.example.vmo_project.ConstantError;
 import com.example.vmo_project.dto.ApartmentDto;
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.exception.NotFoundException;
@@ -29,7 +30,7 @@ public class ApartmentService {
 
     public ApartmentDto getById(Long id) {
         return new ApartmentDto(apartmentRepository.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Not found apartment with id = " + id);
+            throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
         }));
     }
 
@@ -55,7 +56,7 @@ public class ApartmentService {
 
     public ApartmentDto update(Long id, UpdateApartmentRequest request) {
         Apartment apartment = apartmentRepository.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Not found apartment with id = " + id);
+            throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
         });
         apartment.setStatus(request.isStatus());
         apartment.setPersons(personRepository.findByIdIn(request.getPersonId()));
@@ -65,7 +66,7 @@ public class ApartmentService {
 
     public void delete(Long id) {
         Apartment apartment = apartmentRepository.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Not found apartment with id = " + id);
+            throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
         });
         apartmentRepository.delete(apartment);
     }
