@@ -12,6 +12,7 @@ import com.example.vmo_project.request.UpdateApartmentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,8 +48,8 @@ public class ApartmentService {
                 .area(request.getArea())
                 .numberOfRooms(request.getNumberOfRooms())
                 .status(request.isStatus())
-                .bills(billRepository.findByIdIn(request.getBillId()))
-                .persons(personRepository.findByIdIn(request.getPersonId()))
+                .bills(new ArrayList<>())
+                .persons(new ArrayList<>())
                 .build();
         apartmentRepository.save(apartment);
         return new ApartmentDto(apartment);

@@ -30,7 +30,7 @@ public class AuthController {
     private JwtTokenUtil jwtTokenUtil;
 
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         // Tạo đối tượng
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(

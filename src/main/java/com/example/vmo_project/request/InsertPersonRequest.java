@@ -10,12 +10,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsertPersonRequest {
-    private Long id;
     private String name;
     private String email;
     private String phoneNumber;
     private String cardIdNumber;
     private String birthDate;
     private boolean gender;
+    private boolean representative;
     private Long apartmentId;
 }

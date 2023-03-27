@@ -24,8 +24,8 @@ public class ApartmentController {
         return ResponseEntity.ok(apartmentService.getById(id));
     }
 
-    @GetMapping("{num}")
-    public ResponseEntity<?> getApartmentByNumberContain(@PathVariable String num) {
+    @GetMapping("/search")
+    public ResponseEntity<?> getApartmentByNumberContain(@RequestParam String num) {
         return ResponseEntity.ok(apartmentService.getByApartmentNumber(num));
     }
 
