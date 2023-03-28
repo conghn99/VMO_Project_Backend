@@ -39,6 +39,7 @@ public class PersonService {
                 .cardIdNumber(request.getCardIdNumber())
                 .birthDate(LocalDate.parse(request.getBirthDate(), formatter))
                 .gender(request.isGender())
+                .representative(request.isRepresentative())
                 .apartment(apartmentRepository.findById(request.getApartmentId()).orElseThrow(() -> {
                     throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + request.getApartmentId());
                 }))

@@ -10,5 +10,7 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findAllByApartmentIsNotNull();
 
+    List<Person> findAllByApartmentIsNull();
+
     List<Person> findByIdIn(List<Long> ids);
 }
