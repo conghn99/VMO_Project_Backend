@@ -1,6 +1,5 @@
 package com.example.vmo_project.controller;
 
-import com.example.vmo_project.dto.PersonDto;
 import com.example.vmo_project.request.InsertPersonRequest;
 import com.example.vmo_project.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;

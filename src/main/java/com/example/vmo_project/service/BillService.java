@@ -21,18 +21,21 @@ public class BillService {
     private final ApartmentRepository apartmentRepository;
     private final FeeTypeRepository feeTypeRepository;
 
+    // Lấy tất cả các hóa đơn
     public List<BillDto> getAll() {
         return billRepository.findAll().stream()
                 .map(BillDto::new)
                 .toList();
     }
 
+    // Lấy hóa đơn theo id
     public BillDto getById(Long id) {
         return new BillDto(billRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.BILL_NOT_FOUND + id);
         }));
     }
 
+    // Thêm hóa đơn
     public BillDto add(InsertBillRequest request) {
         Bill bill = Bill.builder()
                 .electricityNumber(request.getElectricityNumber())
@@ -48,6 +51,7 @@ public class BillService {
         return new BillDto(bill);
     }
 
+    // Cập nhật trạng thái và ngày thanh toán hóa đơn
     public BillDto update(Long id, UpdateBillRequest request) {
         Bill bill = billRepository.findById(id).orElseThrow(() -> {
            throw new NotFoundException(ConstantError.BILL_NOT_FOUND + id);

@@ -22,6 +22,7 @@ public class ApartmentService {
     private final PersonRepository personRepository;
     private final BillRepository billRepository;
 
+    // Lấy danh sách tất cả căn hộ
     public List<ApartmentDto> getAll() {
         return apartmentRepository.findAll()
                 .stream()
@@ -29,12 +30,14 @@ public class ApartmentService {
                 .toList();
     }
 
+    // Lấy căn hộ theo id
     public ApartmentDto getById(Long id) {
         return new ApartmentDto(apartmentRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
         }));
     }
 
+    // Lấy danh sách các căn hộ theo keyword
     public List<ApartmentDto> getByApartmentNumber(String num) {
         return apartmentRepository.findByApartmentNumber(num)
                 .stream()
@@ -42,6 +45,7 @@ public class ApartmentService {
                 .toList();
     }
 
+    // Thêm căn hộ
     public ApartmentDto add(InsertApartmentRequest request) {
         Apartment apartment = Apartment.builder()
                 .apartmentNumber(request.getApartmentNumber())
@@ -55,6 +59,7 @@ public class ApartmentService {
         return new ApartmentDto(apartment);
     }
 
+    // Sửa căn hộ (trạng thái căn hộ và số người)
     public ApartmentDto update(Long id, UpdateApartmentRequest request) {
         Apartment apartment = apartmentRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
@@ -65,6 +70,7 @@ public class ApartmentService {
         return new ApartmentDto(apartment);
     }
 
+    // Xóa căn hộ
     public void delete(Long id) {
         Apartment apartment = apartmentRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);

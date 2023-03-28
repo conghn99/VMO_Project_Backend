@@ -24,13 +24,16 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .csrf().disable()
+                //config quyền truy cập api
                 .authorizeHttpRequests()
                 .requestMatchers("/login", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                //handle exception khi truy cập api mà chưa được authenticate
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .and()
+                //ko lưu data trên session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

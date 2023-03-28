@@ -1,6 +1,5 @@
 package com.example.vmo_project.controller;
 
-import com.example.vmo_project.dto.BillDto;
 import com.example.vmo_project.request.InsertBillRequest;
 import com.example.vmo_project.request.UpdateBillRequest;
 import com.example.vmo_project.service.BillService;
@@ -30,7 +29,7 @@ public class BillController {
         return new ResponseEntity<>(billService.add(request), HttpStatus.CREATED);
     }
 
-    @PutMapping("")
+    @PutMapping("{id}")
     public ResponseEntity<?> updateBill(@PathVariable Long id, @RequestBody UpdateBillRequest request) {
         return ResponseEntity.ok(billService.update(id, request));
     }

@@ -22,6 +22,7 @@ public class PersonService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    // Lấy tất cả cư dân còn sống trong chung cư
     public List<PersonDto> getAllActive() {
         return personRepository.findAllByApartmentIsNotNull()
                 .stream()
@@ -29,6 +30,7 @@ public class PersonService {
                 .toList();
     }
 
+    // Thêm cư dân
     public PersonDto add(InsertPersonRequest request) {
         Person person = Person.builder()
                 .name(request.getName())
@@ -45,6 +47,7 @@ public class PersonService {
         return new PersonDto(person);
     }
 
+    // Xóa cư dân khỏi căn hộ hiện tại
     public PersonDto update(Long id) {
         Person person = personRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + id);
