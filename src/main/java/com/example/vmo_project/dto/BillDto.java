@@ -1,6 +1,7 @@
 package com.example.vmo_project.dto;
 
 import com.example.vmo_project.entity.Bill;
+import com.example.vmo_project.entity.FeeType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class BillDto {
     private LocalDateTime paidDate;
     private boolean status;
     private Long apartmentId;
-    private List<FeeTypeDto> feeTypeDtoList = new ArrayList<>();
+    private List<String> feeTypeList = new ArrayList<>();
 
     public BillDto(Bill entity) {
         this.setId(entity.getId());
@@ -30,6 +31,6 @@ public class BillDto {
         this.paidDate = entity.getPaidDate();
         this.status = entity.isStatus();
         this.apartmentId = entity.getApartment().getId();
-        this.feeTypeDtoList = entity.getFeeTypes().stream().map(FeeTypeDto::new).toList();
+        this.feeTypeList = entity.getFeeTypes().stream().map(FeeType::getName).toList();
     }
 }

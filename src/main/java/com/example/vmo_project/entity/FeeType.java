@@ -25,10 +25,6 @@ public class FeeType {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @ManyToMany
-    @JoinTable(name = "fee_type_bills",
-            joinColumns = @JoinColumn(name = "feeType_id"),
-            inverseJoinColumns = @JoinColumn(name = "bills_id"))
-    private List<Bill> bills = new ArrayList<>();
-
+    @ManyToMany(mappedBy = "feeTypes")
+    private List<Bill> bills;
 }

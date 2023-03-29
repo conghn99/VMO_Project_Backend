@@ -36,6 +36,9 @@ public class Bill {
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
 
-    @ManyToMany(mappedBy = "bills")
+    @ManyToMany
+    @JoinTable(name = "bill_fee_types",
+            joinColumns = @JoinColumn(name = "bill_id"),
+            inverseJoinColumns = @JoinColumn(name = "feeTypes_id"))
     private List<FeeType> feeTypes = new ArrayList<>();
 }

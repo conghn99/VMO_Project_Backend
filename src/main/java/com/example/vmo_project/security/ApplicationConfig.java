@@ -1,5 +1,6 @@
 package com.example.vmo_project.security;
 
+import com.example.vmo_project.ConstantError;
 import com.example.vmo_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ public class ApplicationConfig {
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByUsername(username)
                 .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("Not found user " + username);
+                    throw new UsernameNotFoundException(ConstantError.USER_NOT_FOUND + username);
                 });
     }
 
