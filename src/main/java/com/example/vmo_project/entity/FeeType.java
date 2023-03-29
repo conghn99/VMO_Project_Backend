@@ -1,5 +1,6 @@
 package com.example.vmo_project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class FeeType {
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "feeTypes")
     private List<Bill> bills;
 }

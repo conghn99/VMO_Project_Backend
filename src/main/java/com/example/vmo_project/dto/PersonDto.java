@@ -32,6 +32,10 @@ public class PersonDto {
         this.birthDate = entity.getBirthDate();
         this.gender = entity.isGender();
         this.representative = entity.isRepresentative();
-        this.apartmentId = entity.getApartment().getId();
+        if (entity.getApartment() == null) {
+            this.apartmentId = null;
+        } else {
+            this.apartmentId = entity.getApartment().getId();
+        }
     }
 }

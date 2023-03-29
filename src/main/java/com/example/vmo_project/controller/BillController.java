@@ -33,4 +33,10 @@ public class BillController {
     public ResponseEntity<?> updateBill(@PathVariable Long id, @RequestBody UpdateBillRequest request) {
         return ResponseEntity.ok(billService.update(id, request));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteBill(@PathVariable Long id) {
+        billService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

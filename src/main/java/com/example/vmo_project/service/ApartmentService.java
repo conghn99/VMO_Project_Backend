@@ -1,6 +1,6 @@
 package com.example.vmo_project.service;
 
-import com.example.vmo_project.ConstantError;
+import com.example.vmo_project.CONST.ConstantError;
 import com.example.vmo_project.dto.ApartmentDto;
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.exception.NotFoundException;

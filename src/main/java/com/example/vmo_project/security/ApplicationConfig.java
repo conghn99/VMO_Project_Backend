@@ -1,6 +1,6 @@
 package com.example.vmo_project.security;
 
-import com.example.vmo_project.ConstantError;
+import com.example.vmo_project.CONST.ConstantError;
 import com.example.vmo_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

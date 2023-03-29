@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +19,10 @@ public class BillDto {
     private Long id;
     private Double electricityNumber;
     private Double waterNumber;
-    private LocalDateTime paidDate;
+    private LocalDate paidDate;
     private boolean status;
     private Long apartmentId;
-    private List<String> feeTypeList = new ArrayList<>();
+    private List<FeeType> feeTypeList = new ArrayList<>();
 
     public BillDto(Bill entity) {
         this.setId(entity.getId());
@@ -31,6 +31,6 @@ public class BillDto {
         this.paidDate = entity.getPaidDate();
         this.status = entity.isStatus();
         this.apartmentId = entity.getApartment().getId();
-        this.feeTypeList = entity.getFeeTypes().stream().map(FeeType::getName).toList();
+        this.feeTypeList = entity.getFeeTypes();
     }
 }

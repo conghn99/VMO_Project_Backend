@@ -8,9 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    List<Person> findAllByApartmentIsNotNull();
-
-    List<Person> findAllByApartmentIsNull();
+    List<Person> findAllByApartmentIdOrApartmentIsNull(Long apartment_id);
 
     List<Person> findByIdIn(List<Long> ids);
 }

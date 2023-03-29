@@ -1,6 +1,7 @@
 package com.example.vmo_project.service;
 
-import com.example.vmo_project.ConstantError;
+import com.example.vmo_project.CONST.ConstantDateFormat;
+import com.example.vmo_project.CONST.ConstantError;
 import com.example.vmo_project.dto.PersonDto;
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Person;
@@ -13,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -22,11 +22,17 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final ApartmentRepository apartmentRepository;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
     // Lấy tất cả cư dân còn sống trong chung cư
-    public List<PersonDto> getAllActive() {
-        return personRepository.findAllByApartmentIsNotNull()
+    public List<PersonDto> getAll() {
+        return personRepository.findAll()
+                .stream()
+                .map(PersonDto::new)
+                .toList();
+    }
+
+    // Lấy tất cả cư dân không có căn hộ hoặc theo Id căn hộ
+    public List<PersonDto> getAllNonActiveOrByApartmentId(Long apartmentId) {
+        return personRepository.findAllByApartmentIdOrApartmentIsNull(apartmentId)
                 .stream()
                 .map(PersonDto::new)
                 .toList();
@@ -46,7 +52,7 @@ public class PersonService {
                 .email(request.getEmail())
                 .phoneNumber(request.getPhoneNumber())
                 .cardIdNumber(request.getCardIdNumber())
-                .birthDate(LocalDate.parse(request.getBirthDate(), formatter))
+                .birthDate(LocalDate.parse(request.getBirthDate(), ConstantDateFormat.FORMATTER))
                 .gender(request.isGender())
                 .representative(request.isRepresentative())
                 .apartment(apartmentRepository.findById(request.getApartmentId()).orElseThrow(() -> {

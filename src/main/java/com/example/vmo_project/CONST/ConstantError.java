@@ -1,4 +1,4 @@
-package com.example.vmo_project;
+package com.example.vmo_project.CONST;
 
 public class ConstantError {
     public static final String BILL_NOT_FOUND = "Not found bill with id ";

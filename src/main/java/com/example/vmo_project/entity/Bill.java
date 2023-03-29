@@ -3,7 +3,7 @@ package com.example.vmo_project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class Bill {
     private Double waterNumber;
 
     @Column(name = "payment_date")
-    private LocalDateTime paidDate;
+    private LocalDate paidDate;
 
     @Column(name = "bill_status")
     private boolean status;

@@ -14,9 +14,14 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("active")
-    public ResponseEntity<?> getAllPersonActive() {
-        return ResponseEntity.ok(personService.getAllActive());
+    @GetMapping("")
+    public ResponseEntity<?> getAllPerson() {
+        return ResponseEntity.ok(personService.getAll());
+    }
+
+    @GetMapping("nonactive/{apartmentId}")
+    public ResponseEntity<?> getAllPersonNonActiveOrByApartmentId(@PathVariable Long apartmentId) {
+        return ResponseEntity.ok(personService.getAllNonActiveOrByApartmentId(apartmentId));
     }
 
     @GetMapping("{id}")
