@@ -39,7 +39,7 @@ public class Person {
     @Column(name = "representative", nullable = false)
     private boolean representative;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
 }

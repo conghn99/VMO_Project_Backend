@@ -27,7 +27,6 @@ public class AuthController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         // Tạo đối tượng

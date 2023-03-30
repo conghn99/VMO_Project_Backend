@@ -3,6 +3,7 @@ package com.example.vmo_project.service;
 import com.example.vmo_project.CONST.ConstantError;
 import com.example.vmo_project.dto.ApartmentDto;
 import com.example.vmo_project.entity.Apartment;
+import com.example.vmo_project.entity.Person;
 import com.example.vmo_project.exception.NotFoundException;
 import com.example.vmo_project.repository.ApartmentRepository;
 import com.example.vmo_project.repository.BillRepository;
@@ -65,7 +66,27 @@ public class ApartmentService {
             throw new NotFoundException(ConstantError.APARTMENT_NOT_FOUND + id);
         });
         apartment.setStatus(request.isStatus());
+
+        // set căn hộ của tất cả các person bên trong về null
+        for (Person person : personRepository.findAll()) {
+            if (person.getApartment() != null) {
+                if (person.getApartment().getId().equals(id)) {
+                    person.setApartment(null);
+                    personRepository.save(person);
+                }
+            }
+        }
+
+        // set căn hộ của các person có trong request
+        for (Long personId : request.getPersonId()) {
+            Person person = personRepository.findById(personId).orElseThrow(() -> {
+                throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + personId);
+            });
+            person.setApartment(apartment);
+            personRepository.save(person);
+        }
         apartment.setPersons(personRepository.findByIdIn(request.getPersonId()));
+
         apartmentRepository.save(apartment);
         return new ApartmentDto(apartment);
     }
