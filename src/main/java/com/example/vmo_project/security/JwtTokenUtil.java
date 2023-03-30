@@ -35,7 +35,8 @@ public class JwtTokenUtil {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + duration * 1000))
-                .signWith(key).compact();
+                .signWith(key)
+                .compact();
     }
 
     // Lấy thông tin được lưu trong token

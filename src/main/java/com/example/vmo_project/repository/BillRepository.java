@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
-    List<Bill> findByIdIn(List<Long> ids);
+    List<Bill> findAllByApartmentId(Long apartmentId);
 }

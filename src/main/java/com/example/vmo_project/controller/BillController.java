@@ -24,6 +24,11 @@ public class BillController {
         return ResponseEntity.ok(billService.getById(id));
     }
 
+    @GetMapping("apartment/{apartmentId}")
+    public ResponseEntity<?> getBillByApartmentId(@PathVariable Long apartmentId) {
+        return ResponseEntity.ok(billService.getByApartmentId(apartmentId));
+    }
+
     @PostMapping("")
     public ResponseEntity<?> addBill(@RequestBody InsertBillRequest request) {
         return new ResponseEntity<>(billService.add(request), HttpStatus.CREATED);

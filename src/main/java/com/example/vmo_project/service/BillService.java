@@ -37,6 +37,14 @@ public class BillService {
         }));
     }
 
+    // Lấy tất cả hóa đơn theo id căn hộ
+    public List<BillDto> getByApartmentId(Long apartmentId) {
+        return billRepository.findAllByApartmentId(apartmentId)
+                .stream()
+                .map(BillDto::new)
+                .toList();
+    }
+
     // Thêm hóa đơn
     public BillDto add(InsertBillRequest request) {
         Bill bill = Bill.builder()

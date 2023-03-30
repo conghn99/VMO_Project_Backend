@@ -1,5 +1,6 @@
 package com.example.vmo_project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,7 +40,8 @@ public class Person {
     @Column(name = "representative", nullable = false)
     private boolean representative;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
 }

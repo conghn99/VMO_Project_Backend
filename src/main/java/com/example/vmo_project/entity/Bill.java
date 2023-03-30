@@ -1,5 +1,6 @@
 package com.example.vmo_project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Bill {
     @Column(name = "bill_status")
     private boolean status;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;

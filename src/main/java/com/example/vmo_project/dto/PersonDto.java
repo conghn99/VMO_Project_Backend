@@ -1,5 +1,6 @@
 package com.example.vmo_project.dto;
 
+import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Person;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class PersonDto {
     private LocalDate birthDate;
     private boolean gender;
     private boolean representative;
-    private Long apartmentId;
+    private Apartment apartment;
 
     public PersonDto(Person entity) {
         this.setId(entity.getId());
@@ -33,9 +34,9 @@ public class PersonDto {
         this.gender = entity.isGender();
         this.representative = entity.isRepresentative();
         if (entity.getApartment() == null) {
-            this.apartmentId = null;
+            this.apartment = null;
         } else {
-            this.apartmentId = entity.getApartment().getId();
+            this.apartment = entity.getApartment();
         }
     }
 }
