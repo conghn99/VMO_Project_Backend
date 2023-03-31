@@ -18,7 +18,6 @@ public class JwtTokenUtil {
     private final Integer duration = 60 * 60 * 24;
 
     // Key này sẽ được sử dụng để mã hóa và giải mã
-    // Độ dài key > 32 bytes
     private final String secret = "xin-chao-cac-ban-toi-ten-la-jwt-hihihihihi";
     SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
 

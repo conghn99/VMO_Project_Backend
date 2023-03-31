@@ -24,6 +24,12 @@ public class BillController {
         return ResponseEntity.ok(billService.getById(id));
     }
 
+    @GetMapping("mail")
+    public ResponseEntity<?> sendMail() {
+        billService.getAndSendBill();
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("apartment/{apartmentId}")
     public ResponseEntity<?> getBillByApartmentId(@PathVariable Long apartmentId) {
         return ResponseEntity.ok(billService.getByApartmentId(apartmentId));

@@ -33,11 +33,11 @@ public class SecurityConfig {
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .and()
-                //Không sử dụng session lưu lại trạng thái của principal
+                //không sử dụng session lưu lại trạng thái của principal
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //Lớp lọc jwt token sẽ được thực thi trước các lớp lọc mặc định
+                //lớp lọc jwt token sẽ được thực thi trước các lớp lọc mặc định
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
