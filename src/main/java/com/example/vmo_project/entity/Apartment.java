@@ -1,6 +1,7 @@
 package com.example.vmo_project.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -19,13 +20,16 @@ public class Apartment {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "apartment_num", nullable = false, unique = true)
+    @NotNull(message = "apartment number must not be null")
+    @Column(name = "apartment_num", unique = true)
     private String apartmentNumber;
 
-    @Column(name = "area", nullable = false)
+    @NotNull(message = "area must not be null")
+    @Column(name = "area")
     private Double area;
 
-    @Column(name = "num_rooms", nullable = false)
+    @NotNull(message = "number of room must not be null")
+    @Column(name = "num_rooms")
     private Integer numberOfRooms;
 
     @Column(name = "apartment_status")

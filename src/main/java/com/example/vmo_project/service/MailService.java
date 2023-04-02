@@ -1,5 +1,9 @@
 package com.example.vmo_project.service;
 
+import com.example.vmo_project.entity.Apartment;
+import com.example.vmo_project.entity.Bill;
+import com.example.vmo_project.entity.FeeType;
+import com.example.vmo_project.entity.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,19 +14,67 @@ import org.springframework.stereotype.Service;
 public class MailService {
     private final JavaMailSender emailSender;
 
-    public void sendEmail(String apartment, Double total, String email) {
+    public void sendEmail(Person person, Apartment apartment, Bill bill) {
         SimpleMailMessage message = new SimpleMailMessage();
 
+        double amount = calcUnpaidBill(bill);
+
         StringBuilder subjectBuilder = new StringBuilder("Thông báo đóng tiền phí sinh hoạt căn hộ ");
-        String subject = subjectBuilder.append(apartment).toString();
+        String subject = subjectBuilder.append(apartment.getApartmentNumber()).toString();
 
-        StringBuilder bodyBuilder = new StringBuilder("Tổng phí sinh hoạt phải đóng: ");
-        String body = bodyBuilder.append(total).append(" VNĐ").toString();
+        StringBuilder bodyBuilder = new StringBuilder("Kính gửi ");
+        String body = bodyBuilder.append(person.getName())
+                .append(",\n\n")
+                .append("Thông tin chi tiết các loại phí:\n")
+                .append("- Tiền điện:\n")
+                .append(" .Số điện tiêu thụ: ")
+                .append(bill.getElectricityNumber())
+                .append("Kwh\n")
+                .append(" .Tổng hóa đơn điện: ")
+                .append(bill.getElectricityNumber()*bill.getFeeTypes().stream().filter(feeType -> feeType.getName().equals("electricity")).findFirst().orElse(null).getPrice())
+                .append(" VNĐ\n")
+                .append("- Tiền nước:\n")
+                .append(" .Số nước tiêu thụ: ")
+                .append(bill.getWaterNumber())
+                .append("m3\n")
+                .append(" .Tổng hóa đơn nước: ")
+                .append(bill.getWaterNumber()*bill.getFeeTypes().stream().filter(feeType -> feeType.getName().equals("water")).findFirst().orElse(null).getPrice())
+                .append(" VNĐ\n")
+                .append("- Tiền chi phí chung cư:\n")
+                .append(" .Tiền gửi xe: ")
+                .append(bill.getFeeTypes().stream().filter(feeType -> feeType.getName().equals("parking")).findFirst().orElse(null).getPrice())
+                .append(" VNĐ\n")
+                .append(" .Tiền vệ sinh: ")
+                .append(bill.getFeeTypes().stream().filter(feeType -> feeType.getName().equals("cleaning")).findFirst().orElse(null).getPrice())
+                .append(" VNĐ\n")
+                .append(" .Tiền bảo trì: ")
+                .append(bill.getFeeTypes().stream().filter(feeType -> feeType.getName().equals("maintaining")).findFirst().orElse(null).getPrice())
+                .append(" VNĐ\n")
+                .append("Tổng số tiền phải thanh toán: ")
+                .append(amount)
+                .append(" VNĐ\n\n")
+                .append("Trân trọng,\nBan quản lý tòa nhà")
+                .toString();
 
-        message.setTo(email);
+        message.setTo(person.getEmail());
         message.setSubject(subject);
         message.setText(body);
 
         emailSender.send(message);
+    }
+
+    // Tính tổng phí phải trả của từng hóa đơn
+    private double calcUnpaidBill(Bill unpaidBill) {
+        double total = 0;
+        for (FeeType feeType : unpaidBill.getFeeTypes()) {
+            if (feeType.getName().equals("electricity")) {
+                total += feeType.getPrice()*unpaidBill.getElectricityNumber();
+            } else if (feeType.getName().equals("water")) {
+                total += feeType.getPrice()*unpaidBill.getWaterNumber();
+            } else {
+                total += feeType.getPrice();
+            }
+        }
+        return total;
     }
 }

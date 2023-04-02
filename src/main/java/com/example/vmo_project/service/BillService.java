@@ -4,7 +4,6 @@ import com.example.vmo_project.CONST.ConstantDateFormat;
 import com.example.vmo_project.CONST.ConstantError;
 import com.example.vmo_project.dto.BillDto;
 import com.example.vmo_project.entity.Bill;
-import com.example.vmo_project.entity.FeeType;
 import com.example.vmo_project.entity.Person;
 import com.example.vmo_project.exception.NotFoundException;
 import com.example.vmo_project.repository.ApartmentRepository;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -91,7 +88,7 @@ public class BillService {
     }
 
     // Lấy danh sách hóa đơn và gửi mail
-    @Scheduled(cron = "0 0 0 30 * *")
+//    @Scheduled(cron = "0 0 0 30 * *")
     @Transactional
     public void getAndSendBill() {
         // Lấy danh sách hóa đơn chưa thanh toán
@@ -100,46 +97,32 @@ public class BillService {
                 .filter(bill -> !bill.isStatus())
                 .toList();
 
-        Map<String, Double> amount = calcUnpaidBill(unpaidBill);
-
         // Lấy danh sách đại diện căn hộ
         List<Person> representativePerson = personRepository.findAll()
                 .stream()
                 .filter(Person::isRepresentative)
                 .toList();
 
-        for (Person person : representativePerson) {
-            String apartment = amount.entrySet().stream()
-                    .filter(a -> person.getApartment().getApartmentNumber().equals(a.getKey()))
-                    .map(Map.Entry::getKey)
-                    .findFirst()
-                    .orElse(null);
-
-            Double total = amount.entrySet().stream()
-                    .filter(a -> person.getApartment().getApartmentNumber().equals(a.getKey()))
-                    .map(Map.Entry::getValue)
-                    .findFirst()
-                    .orElse(null);
-            mailService.sendEmail(apartment, total, person.getEmail());
+        // Match người đại diện căn hộ vs hóa đơn để gửi mail
+        for (Bill bill : unpaidBill) {
+            for (Person person : representativePerson) {
+                if (bill.getApartment().getId().equals(person.getApartment().getId())) {
+                    mailService.sendEmail(person, bill.getApartment(), bill);
+                }
+            }
         }
     }
 
-    private Map<String, Double> calcUnpaidBill(List<Bill> unpaidBill) {
-        Map<String, Double> amount = new HashMap<>();
-
+    public void testSendMail() {
+        List<Bill> unpaidBill = billRepository.findAll()
+                .stream()
+                .filter(bill -> !bill.isStatus())
+                .toList();
+        Person person = personRepository.findById(23L).orElse(null);
         for (Bill bill : unpaidBill) {
-            double total = 0;
-            for (FeeType feeType : bill.getFeeTypes()) {
-                if (feeType.getName().equals("electricity")) {
-                    total += feeType.getPrice()*bill.getElectricityNumber();
-                } else if (feeType.getName().equals("water")) {
-                    total += feeType.getPrice()*bill.getWaterNumber();
-                } else {
-                    total += feeType.getPrice();
-                }
+            if (bill.getApartment().getId().equals(person.getApartment().getId())) {
+                mailService.sendEmail(person, bill.getApartment(), bill);
             }
-            amount.put(bill.getApartment().getApartmentNumber(), total);
         }
-        return amount;
     }
 }

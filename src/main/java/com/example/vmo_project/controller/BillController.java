@@ -25,8 +25,8 @@ public class BillController {
     }
 
     @GetMapping("mail")
-    public ResponseEntity<?> sendMail() {
-        billService.getAndSendBill();
+    public ResponseEntity<?> testSendMail() {
+        billService.testSendMail();
         return ResponseEntity.noContent().build();
     }
 
