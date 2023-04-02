@@ -1,6 +1,8 @@
 package com.example.vmo_project.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,10 +22,13 @@ public class User implements UserDetails {
     @Column(name = "Id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @NotNull(message = "username must not be null")
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @NotNull(message = "password must not be null")
+    @Size(min = 3, max = 15, message = "The length of password is not valid")
+    @Column(name = "password")
     private String password;
 
     @Override

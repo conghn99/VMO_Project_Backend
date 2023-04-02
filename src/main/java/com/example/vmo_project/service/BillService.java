@@ -89,7 +89,7 @@ public class BillService {
 
     // Lấy danh sách hóa đơn và gửi mail
 //    @Scheduled(cron = "0 0 0 30 * *")
-    @Transactional
+//    @Transactional
     public void getAndSendBill() {
         // Lấy danh sách hóa đơn chưa thanh toán
         List<Bill> unpaidBill = billRepository.findAll()

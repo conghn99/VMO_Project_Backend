@@ -16,4 +16,13 @@ public class LoginResponse {
     private String token;
     @JsonProperty("isAuthenticated")
     private boolean isAuthenticated;
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "auth=" + auth +
+                ", token='" + token + '\'' +
+                ", isAuthenticated=" + isAuthenticated +
+                '}';
+    }
 }

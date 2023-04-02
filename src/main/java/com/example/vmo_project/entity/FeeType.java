@@ -2,6 +2,7 @@ package com.example.vmo_project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,10 +21,12 @@ public class FeeType {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "type", unique = true, nullable = false)
+    @NotNull(message = "fee type must not be null")
+    @Column(name = "type", unique = true)
     private String name;
 
-    @Column(name = "price", nullable = false)
+    @NotNull(message = "fee price must not be null")
+    @Column(name = "price")
     private Double price;
 
     @JsonBackReference

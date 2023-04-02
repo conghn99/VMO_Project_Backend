@@ -13,18 +13,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class VmoProjectApplicationTests {
 
-    @Autowired
-    private BillService billService;
-
-    @Autowired
-    private ApartmentService apartmentService;
-
-    @Autowired
-    private PersonService personService;
-
-    @Test
-    void calcBill() {
-
-    }
+//    @Autowired
+//    private BillService billService;
+//
+//    @Autowired
+//    private ApartmentService apartmentService;
+//
+//    @Autowired
+//    private PersonService personService;
+//
+//    @Test
+//    void calcBill() {
+//
+//    }
 
 }

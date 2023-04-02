@@ -6,7 +6,6 @@ import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Person;
 import com.example.vmo_project.exception.NotFoundException;
 import com.example.vmo_project.repository.ApartmentRepository;
-import com.example.vmo_project.repository.BillRepository;
 import com.example.vmo_project.repository.PersonRepository;
 import com.example.vmo_project.request.InsertApartmentRequest;
 import com.example.vmo_project.request.UpdateApartmentRequest;
@@ -21,7 +20,6 @@ import java.util.List;
 public class ApartmentService {
     private final ApartmentRepository apartmentRepository;
     private final PersonRepository personRepository;
-    private final BillRepository billRepository;
 
     // Lấy danh sách tất cả căn hộ
     public List<ApartmentDto> getAll() {

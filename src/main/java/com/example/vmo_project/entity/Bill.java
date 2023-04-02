@@ -2,6 +2,7 @@ package com.example.vmo_project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -21,10 +22,12 @@ public class Bill {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "electricity_number", nullable = false)
+    @NotNull(message = "electricity number must not be null")
+    @Column(name = "electricity_number")
     private Double electricityNumber;
 
-    @Column(name = "water_number", nullable = false)
+    @NotNull(message = "water number must not be null")
+    @Column(name = "water_number")
     private Double waterNumber;
 
     @Column(name = "payment_date")
