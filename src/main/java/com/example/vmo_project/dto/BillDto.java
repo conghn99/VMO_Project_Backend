@@ -20,6 +20,7 @@ public class BillDto {
     private Long id;
     private Double electricityNumber;
     private Double waterNumber;
+    private LocalDate billDate;
     private LocalDate paidDate;
     private boolean status;
     private Apartment apartment;
@@ -29,6 +30,7 @@ public class BillDto {
         this.setId(entity.getId());
         this.electricityNumber = entity.getElectricityNumber();
         this.waterNumber = entity.getWaterNumber();
+        this.billDate = entity.getBillDate();
         this.paidDate = entity.getPaidDate();
         this.status = entity.isStatus();
         this.apartment = entity.getApartment();

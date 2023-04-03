@@ -44,7 +44,7 @@ public class InitData {
     @Rollback(value = false)
     void save_user() {
         User user = User.builder()
-                .username("user1")
+                .username("user2")
                 .password(passwordEncoder.encode("111"))
                 .build();
         userRepository.save(user);

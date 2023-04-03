@@ -56,6 +56,7 @@ public class BillService {
         Bill bill = Bill.builder()
                 .electricityNumber(request.getElectricityNumber())
                 .waterNumber(request.getWaterNumber())
+                .billDate(LocalDate.parse("01-"+request.getBillDate(), ConstantDateFormat.FORMATTER))
                 .paidDate(null)
                 .status(false)
                 .apartment(apartmentRepository.findById(request.getApartmentId()).orElseThrow(() -> {

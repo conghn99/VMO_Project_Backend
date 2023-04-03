@@ -30,6 +30,10 @@ public class Bill {
     @Column(name = "water_number")
     private Double waterNumber;
 
+    @NotNull(message = "time of bill must not be null")
+    @Column(name = "of_month")
+    private LocalDate billDate;
+
     @Column(name = "payment_date")
     private LocalDate paidDate;
 

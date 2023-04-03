@@ -66,23 +66,23 @@ public class ApartmentService {
         apartment.setStatus(request.isStatus());
 
         // set căn hộ của tất cả các person bên trong về null
-        for (Person person : personRepository.findAll()) {
-            if (person.getApartment() != null) {
-                if (person.getApartment().getId().equals(id)) {
-                    person.setApartment(null);
-                    personRepository.save(person);
-                }
-            }
-        }
-
-        // set căn hộ của các person có trong request
-        for (Long personId : request.getPersonId()) {
-            Person person = personRepository.findById(personId).orElseThrow(() -> {
-                throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + personId);
-            });
-            person.setApartment(apartment);
-            personRepository.save(person);
-        }
+//        for (Person person : personRepository.findAll()) {
+//            if (person.getApartment() != null) {
+//                if (person.getApartment().getId().equals(id)) {
+//                    person.setApartment(null);
+//                    personRepository.save(person);
+//                }
+//            }
+//        }
+//
+//        // set căn hộ của các person có trong request
+//        for (Long personId : request.getPersonId()) {
+//            Person person = personRepository.findById(personId).orElseThrow(() -> {
+//                throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + personId);
+//            });
+//            person.setApartment(apartment);
+//            personRepository.save(person);
+//        }
         apartment.setPersons(personRepository.findByIdIn(request.getPersonId()));
 
         apartmentRepository.save(apartment);

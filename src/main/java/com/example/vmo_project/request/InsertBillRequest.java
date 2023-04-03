@@ -14,6 +14,7 @@ import java.util.List;
 public class InsertBillRequest {
     private Double electricityNumber;
     private Double waterNumber;
+    private String billDate;
     private Long apartmentId;
     private List<Long> feeTypeId;
 }
