@@ -1,7 +1,7 @@
 package com.example.vmo_project.service;
 
-import com.example.vmo_project.CONST.ConstantDateFormat;
-import com.example.vmo_project.CONST.ConstantError;
+import com.example.vmo_project.constant.ConstantDateFormat;
+import com.example.vmo_project.constant.ConstantError;
 import com.example.vmo_project.dto.PersonDto;
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Person;

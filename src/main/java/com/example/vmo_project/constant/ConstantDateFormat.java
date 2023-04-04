@@ -1,4 +1,4 @@
-package com.example.vmo_project.CONST;
+package com.example.vmo_project.constant;
 
 import java.time.format.DateTimeFormatter;
 

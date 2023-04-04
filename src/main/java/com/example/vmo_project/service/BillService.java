@@ -1,7 +1,7 @@
 package com.example.vmo_project.service;
 
-import com.example.vmo_project.CONST.ConstantDateFormat;
-import com.example.vmo_project.CONST.ConstantError;
+import com.example.vmo_project.constant.ConstantDateFormat;
+import com.example.vmo_project.constant.ConstantError;
 import com.example.vmo_project.dto.BillDto;
 import com.example.vmo_project.entity.Bill;
 import com.example.vmo_project.entity.Person;
@@ -13,9 +13,7 @@ import com.example.vmo_project.repository.PersonRepository;
 import com.example.vmo_project.request.InsertBillRequest;
 import com.example.vmo_project.request.UpdateBillRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.vmo_project;
 
-import com.example.vmo_project.CONST.ConstantError;
+import com.example.vmo_project.constant.ConstantError;
 import com.example.vmo_project.dto.ApartmentDto;
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Person;
