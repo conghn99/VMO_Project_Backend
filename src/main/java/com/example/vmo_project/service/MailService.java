@@ -14,10 +14,8 @@ import org.springframework.stereotype.Service;
 public class MailService {
     private final JavaMailSender emailSender;
 
-    public void sendEmail(Person person, Apartment apartment, Bill bill) {
+    public void sendEmail(Person person, Apartment apartment, Bill bill, double amount) {
         SimpleMailMessage message = new SimpleMailMessage();
-
-        double amount = calcUnpaidBill(bill);
 
         StringBuilder subjectBuilder = new StringBuilder("Thông báo đóng tiền phí sinh hoạt căn hộ ");
         String subject = subjectBuilder.append(apartment.getApartmentNumber()).toString();
@@ -61,20 +59,5 @@ public class MailService {
         message.setText(body);
 
         emailSender.send(message);
-    }
-
-    // Tính tổng phí phải trả của từng hóa đơn
-    private double calcUnpaidBill(Bill unpaidBill) {
-        double total = 0;
-        for (FeeType feeType : unpaidBill.getFeeTypes()) {
-            if (feeType.getName().equals("electricity")) {
-                total += feeType.getPrice()*unpaidBill.getElectricityNumber();
-            } else if (feeType.getName().equals("water")) {
-                total += feeType.getPrice()*unpaidBill.getWaterNumber();
-            } else {
-                total += feeType.getPrice();
-            }
-        }
-        return total;
     }
 }

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ApartmentServiceGetTest {
+public class ApartmentServiceTest {
     @Mock
     private ApartmentRepository apartmentRepository;
 
@@ -33,7 +33,7 @@ public class ApartmentServiceGetTest {
     private ApartmentService apartmentService;
 
     @Test
-    void testGetAllAndGetByIdApartments() {
+    void testGetAllAndGetByIdAndGetByApartmentNumberApartments() {
         // Arrange
         Apartment apartment1 = new Apartment(1L, "101", 10D, 3, true, new ArrayList<>(), new ArrayList<>());
         Apartment apartment2 = new Apartment(2L, "102", 11D, 4, true, new ArrayList<>(), new ArrayList<>());
@@ -43,7 +43,8 @@ public class ApartmentServiceGetTest {
 
         List<Apartment> apartments = Arrays.asList(apartment1, apartment2, apartment3, apartment4, apartment5);
 
-        when(apartmentRepository.findAll()).thenReturn(apartments);
+        when(apartmentRepository.findAll())
+                .thenReturn(apartments);
         when(apartmentRepository.findById(1L))
                 .thenReturn(java.util.Optional.ofNullable(apartments.get(0)));
         when(apartmentRepository.findById(2L))
@@ -99,7 +100,8 @@ public class ApartmentServiceGetTest {
     void testDeleteNonExistingApartment() {
         // Arrange
         Long apartmentId = 1L;
-        when(apartmentRepository.findById(apartmentId)).thenReturn(Optional.empty());
+        when(apartmentRepository.findById(apartmentId))
+                .thenReturn(Optional.empty());
 
         // Act và Assert
         assertThrows(NotFoundException.class, () -> {
@@ -133,7 +135,7 @@ public class ApartmentServiceGetTest {
 
     @Test
     void testUpdateApartment() {
-        // Given
+        // Arrange
         Long apartmentId = 1L;
         UpdateApartmentRequest request = new UpdateApartmentRequest();
         request.setStatus(true);
@@ -159,10 +161,10 @@ public class ApartmentServiceGetTest {
         when(personRepository.save(any(Person.class)))
                 .thenReturn(new Person());
 
-        // When
+        // Act
         ApartmentDto result = apartmentService.update(apartmentId, request);
 
-        // Then
+        // Assert
         verify(apartmentRepository).findById(apartmentId);
         verify(personRepository, times(personIds.size())).findById(any(Long.class));
         verify(personRepository, times(personsToUpdate.size())).save(any(Person.class));
@@ -173,23 +175,24 @@ public class ApartmentServiceGetTest {
 
     @Test
     void testUpdateApartmentNotFound() {
-        // Given
+        // Arrange
         Long apartmentId = 1L;
         UpdateApartmentRequest request = new UpdateApartmentRequest();
-        when(apartmentRepository.findById(apartmentId)).thenReturn(Optional.empty());
+        when(apartmentRepository.findById(apartmentId))
+                .thenReturn(Optional.empty());
 
-        // When
+        // Act
         NotFoundException exception = assertThrows(NotFoundException.class,
                 () -> apartmentService.update(apartmentId, request));
 
-        // Then
+        // Assert
         verify(apartmentRepository).findById(apartmentId);
         assertEquals(ConstantError.APARTMENT_NOT_FOUND + apartmentId, exception.getMessage());
     }
 
     @Test
     void testUpdatePersonNotFound() {
-        // Given
+        // Arrange
         Long apartmentId = 1L;
         UpdateApartmentRequest request = new UpdateApartmentRequest();
         request.setPersonId(Arrays.asList(2L));
@@ -204,11 +207,11 @@ public class ApartmentServiceGetTest {
         when(personRepository.findById(2L))
                 .thenReturn(Optional.empty());
 
-        // When
+        // Act
         NotFoundException exception = assertThrows(NotFoundException.class,
                 () -> apartmentService.update(apartmentId, request));
 
-        // Then
+        // Assert
         verify(apartmentRepository).findById(apartmentId);
         assertEquals(ConstantError.PERSON_NOT_FOUND + 2L, exception.getMessage());
     }

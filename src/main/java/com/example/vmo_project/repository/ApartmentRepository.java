@@ -11,4 +11,6 @@ import java.util.List;
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
     @Query("select a from Apartment a where lower(a.apartmentNumber) like lower(concat('%', ?1, '%'))")
     List<Apartment> findByApartmentNumber(String number);
+
+    Apartment findByArea(Double area);
 }

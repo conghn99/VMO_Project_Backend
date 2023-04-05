@@ -4,6 +4,7 @@ import com.example.vmo_project.constant.ConstantDateFormat;
 import com.example.vmo_project.constant.ConstantError;
 import com.example.vmo_project.dto.BillDto;
 import com.example.vmo_project.entity.Bill;
+import com.example.vmo_project.entity.FeeType;
 import com.example.vmo_project.entity.Person;
 import com.example.vmo_project.exception.NotFoundException;
 import com.example.vmo_project.repository.ApartmentRepository;
@@ -106,7 +107,7 @@ public class BillService {
         for (Bill bill : unpaidBill) {
             for (Person person : representativePerson) {
                 if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-                    mailService.sendEmail(person, bill.getApartment(), bill);
+                    mailService.sendEmail(person, bill.getApartment(), bill, calcUnpaidBill(bill));
                 }
             }
         }
@@ -120,8 +121,23 @@ public class BillService {
         Person person = personRepository.findById(23L).orElse(null);
         for (Bill bill : unpaidBill) {
             if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-                mailService.sendEmail(person, bill.getApartment(), bill);
+                mailService.sendEmail(person, bill.getApartment(), bill, calcUnpaidBill(bill));
             }
         }
+    }
+
+    // Tính tổng phí phải trả của từng hóa đơn
+    private double calcUnpaidBill(Bill unpaidBill) {
+        double total = 0;
+        for (FeeType feeType : unpaidBill.getFeeTypes()) {
+            if (feeType.getName().equals("electricity")) {
+                total += feeType.getPrice()*unpaidBill.getElectricityNumber();
+            } else if (feeType.getName().equals("water")) {
+                total += feeType.getPrice()*unpaidBill.getWaterNumber();
+            } else {
+                total += feeType.getPrice();
+            }
+        }
+        return total;
     }
 }

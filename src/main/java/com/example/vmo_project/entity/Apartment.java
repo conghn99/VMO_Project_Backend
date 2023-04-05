@@ -41,4 +41,16 @@ public class Apartment {
     @OneToMany(mappedBy = "apartment")
     private List<Person> persons = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Apartment{" +
+                "id=" + id +
+                ", apartmentNumber='" + apartmentNumber + '\'' +
+                ", area=" + area +
+                ", numberOfRooms=" + numberOfRooms +
+                ", status=" + status +
+                ", bills=" + bills +
+                ", persons=" + persons +
+                '}';
+    }
 }

@@ -26,14 +26,14 @@ public class SecurityConfig {
                 .csrf().disable()
                 //config quyền truy cập api
                 .authorizeHttpRequests()
-                .requestMatchers("/login", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
+                .requestMatchers("/login", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 //handle exception khi truy cập api mà chưa được authenticate
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .and()
-                //không sử dụng session lưu lại trạng thái của principal
+                //không sử dụng session lưu lại trạng thái của principal (current login user)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

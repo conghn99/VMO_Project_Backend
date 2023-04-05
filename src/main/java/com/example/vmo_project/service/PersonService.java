@@ -11,6 +11,9 @@ import com.example.vmo_project.repository.PersonRepository;
 import com.example.vmo_project.request.InsertPersonRequest;
 import com.example.vmo_project.request.UpdatePersonRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,15 +25,15 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final ApartmentRepository apartmentRepository;
 
-    // Lấy tất cả cư dân còn sống trong chung cư
-    public List<PersonDto> getAll() {
-        return personRepository.findAll()
-                .stream()
-                .map(PersonDto::new)
-                .toList();
+    private static final int PAGE_SIZE = 10;
+
+    // Lấy tất cả cư dân còn sống trong chung cư (phân trang)
+    public Page<PersonDto> getAll(int page) {
+        Page<Person> persons = personRepository.findAll(PageRequest.of(page, PAGE_SIZE, Sort.by("name")));
+        return persons.map(PersonDto::new);
     }
 
-    // Lấy tất cả cư dân không có căn hộ hoặc theo Id căn hộ
+    // Lấy tất cả cư dân không có căn hộ hoặc theo id căn hộ
     public List<PersonDto> getAllNonActiveOrByApartmentId(Long apartmentId) {
         return personRepository.findAllByApartmentIdOrApartmentIsNull(apartmentId)
                 .stream()
@@ -43,6 +46,13 @@ public class PersonService {
         return new PersonDto(personRepository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(ConstantError.PERSON_NOT_FOUND + id);
         }));
+    }
+
+    public List<PersonDto> getByKeyword(String keyword) {
+        return personRepository.findByNameOrEmailOrApartment(keyword)
+                .stream()
+                .map(PersonDto::new)
+                .toList();
     }
 
     // Thêm cư dân

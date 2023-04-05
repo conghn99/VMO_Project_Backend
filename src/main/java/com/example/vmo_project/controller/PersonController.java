@@ -15,8 +15,8 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllPerson() {
-        return ResponseEntity.ok(personService.getAll());
+    public ResponseEntity<?> getAllPerson(@RequestParam(defaultValue = "0") int page) {
+        return ResponseEntity.ok(personService.getAll(page));
     }
 
     @GetMapping("nonactive/{apartmentId}")
@@ -27,6 +27,11 @@ public class PersonController {
     @GetMapping("{id}")
     public ResponseEntity<?> getPersonById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.getById(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> getPersonByKeyword(@RequestParam String keyword) {
+        return ResponseEntity.ok(personService.getByKeyword(keyword));
     }
 
     @PostMapping("")
