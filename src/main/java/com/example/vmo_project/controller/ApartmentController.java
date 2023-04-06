@@ -3,6 +3,10 @@ package com.example.vmo_project.controller;
 import com.example.vmo_project.request.InsertApartmentRequest;
 import com.example.vmo_project.request.UpdateApartmentRequest;
 import com.example.vmo_project.service.ApartmentService;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/apartments")
+@SecurityRequirement(name = "Authorization")
 public class ApartmentController {
     @Autowired
     private ApartmentService apartmentService;

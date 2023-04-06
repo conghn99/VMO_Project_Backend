@@ -3,6 +3,7 @@ package com.example.vmo_project.controller;
 import com.example.vmo_project.request.InsertBillRequest;
 import com.example.vmo_project.request.UpdateBillRequest;
 import com.example.vmo_project.service.BillService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bills")
+@SecurityRequirement(name = "Authorization")
 public class BillController {
     @Autowired
     private BillService billService;

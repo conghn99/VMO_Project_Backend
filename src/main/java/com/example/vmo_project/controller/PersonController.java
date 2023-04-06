@@ -3,6 +3,7 @@ package com.example.vmo_project.controller;
 import com.example.vmo_project.request.InsertPersonRequest;
 import com.example.vmo_project.request.UpdatePersonRequest;
 import com.example.vmo_project.service.PersonService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/person")
+@SecurityRequirement(name = "Authorization")
 public class PersonController {
     @Autowired
     private PersonService personService;

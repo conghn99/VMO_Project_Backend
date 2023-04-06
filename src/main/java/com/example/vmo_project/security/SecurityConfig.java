@@ -26,10 +26,8 @@ public class SecurityConfig {
                 .csrf().disable()
             //config quyền truy cập api
             .authorizeHttpRequests()
-                .requestMatchers("/login", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated().
-            and()
-                .formLogin()
+                .requestMatchers("/login", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated()
             .and()
             //handle exception khi truy cập api mà chưa được authenticate
                 .exceptionHandling()

@@ -2,12 +2,14 @@ package com.example.vmo_project.controller;
 
 import com.example.vmo_project.request.UpdateFeePriceRequest;
 import com.example.vmo_project.service.FeeTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/fees")
+@SecurityRequirement(name = "Authorization")
 public class FeeTypeController {
     @Autowired
     private FeeTypeService feeTypeService;
