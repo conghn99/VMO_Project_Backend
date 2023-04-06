@@ -2,7 +2,7 @@ package com.example.vmo_project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -21,15 +21,20 @@ public class Person {
     private Long id;
 
     @NotNull(message = "person name must not be null")
+    @NotBlank(message = "person name must not blank")
     @Column(name = "name")
     private String name;
 
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "invalid email address")
     @Column(name = "email", unique = true)
     private String email;
 
+//    @Digits(integer = 11, fraction = 0, message= "invalid phone number")
+    @Size(min = 9, max = 11, message = "the length of phone number is invalid")
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
+//    @Digits(integer = 11, fraction = 0, message= "invalid card id number")
     @Column(name = "cardID_number", unique = true)
     private String cardIdNumber;
 

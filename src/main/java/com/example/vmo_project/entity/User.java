@@ -1,6 +1,7 @@
 package com.example.vmo_project.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -22,6 +23,7 @@ public class User implements UserDetails {
     @Column(name = "Id", nullable = false, unique = true)
     private Long id;
 
+    @NotBlank(message = "username must not blank")
     @NotNull(message = "username must not be null")
     @Column(name = "username", unique = true)
     private String username;
