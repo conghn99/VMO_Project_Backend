@@ -21,7 +21,7 @@ public class Person {
     private Long id;
 
     @NotNull(message = "person name must not be null")
-    @NotBlank(message = "person name must not blank")
+//    @NotBlank(message = "person name must not blank")
     @Column(name = "name")
     private String name;
 

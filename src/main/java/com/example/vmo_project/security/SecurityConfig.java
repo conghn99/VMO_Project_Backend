@@ -22,22 +22,24 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .and()
+            .and()
                 .csrf().disable()
-                //config quyền truy cập api
-                .authorizeHttpRequests()
-                .requestMatchers("/login", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                //handle exception khi truy cập api mà chưa được authenticate
+            //config quyền truy cập api
+            .authorizeHttpRequests()
+                .requestMatchers("/login", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated().
+            and()
+                .formLogin()
+            .and()
+            //handle exception khi truy cập api mà chưa được authenticate
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
-                .and()
-                //không sử dụng session lưu lại trạng thái của principal (current login user)
+            .and()
+            //không sử dụng session lưu lại trạng thái của principal (current login user)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                //lớp lọc jwt token sẽ được thực thi trước các lớp lọc mặc định
+            .and()
+            //lớp lọc jwt token sẽ được thực thi trước các lớp lọc mặc định
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

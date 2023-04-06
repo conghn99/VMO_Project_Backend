@@ -22,12 +22,12 @@ public class FeeType {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "fee type must not blank")
+//    @NotBlank(message = "fee type must not blank")
     @NotNull(message = "fee type must not be null")
     @Column(name = "type", unique = true)
     private String name;
 
-    @NotBlank(message = "fee price must not blank")
+//    @NotBlank(message = "fee price must not blank")
     @NotNull(message = "fee price must not be null")
     @Column(name = "price")
     private Double price;

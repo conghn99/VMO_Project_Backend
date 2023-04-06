@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @Column(name = "Id", nullable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "username must not blank")
+//    @NotBlank(message = "username must not blank")
     @NotNull(message = "username must not be null")
     @Column(name = "username", unique = true)
     private String username;
@@ -66,5 +66,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

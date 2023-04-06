@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class CustomFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -34,12 +36,14 @@ public class CustomFilter extends OncePerRequestFilter {
             return;
         }
         String token = authorizationToken.substring(7);
+        log.info("Token : {}", token);
 
         // Lấy thông tin từ trong token
         Claims claims = jwtTokenUtil.getClaimsFromToken(token);
 
         // Lấy username từ trong token
         String username = claims.getSubject();
+        log.info("Username : {}", username);
 
         // Kiểm tra username
         if (username == null) {
