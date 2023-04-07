@@ -107,7 +107,8 @@ public class BillService {
         for (Bill bill : unpaidBill) {
             for (Person person : representativePerson) {
                 if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-                    mailService.sendEmail(person, bill.getApartment(), bill, calcUnpaidBill(bill));
+                    double total = calcUnpaidBill(bill);
+                    mailService.sendEmail(person, bill.getApartment(), bill, total);
                 }
             }
         }
@@ -121,7 +122,8 @@ public class BillService {
         Person person = personRepository.findById(23L).orElse(null);
         for (Bill bill : unpaidBill) {
             if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-                mailService.sendEmail(person, bill.getApartment(), bill, calcUnpaidBill(bill));
+                double total = calcUnpaidBill(bill);
+                mailService.sendEmail(person, bill.getApartment(), bill, total);
             }
         }
     }
