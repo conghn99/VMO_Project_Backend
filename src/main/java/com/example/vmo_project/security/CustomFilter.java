@@ -31,7 +31,7 @@ public class CustomFilter extends OncePerRequestFilter {
         // Lấy token từ header
         // Authorization : Bearer jdkalcnmmkksks
         String authorizationToken = request.getHeader("Authorization");
-        if(authorizationToken == null || !authorizationToken.startsWith("Bearer")) {
+        if (authorizationToken == null || !authorizationToken.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -54,11 +54,14 @@ public class CustomFilter extends OncePerRequestFilter {
         // Lấy thông tin user
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        // Tạo đối tượng xác thực
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        if (jwtTokenUtil.validateJwtToken(token)) {
+            // Tạo đối tượng xác thực
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-        // Xác thực thành công, lưu object Authentication vào SecurityContextHolder
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            // Xác thực thành công, lưu object Authentication vào SecurityContextHolder
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+
         filterChain.doFilter(request, response);
     }
 }

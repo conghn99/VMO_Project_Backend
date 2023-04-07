@@ -60,4 +60,14 @@ public class Apartment {
                 ", persons=" + persons +
                 '}';
     }
+
+    @PreRemove
+    private void preRemove() {
+        for (Bill bill : bills) {
+            bill.setApartment(null);
+        }
+        for (Person person : persons) {
+            person.setApartment(null);
+        }
+    }
 }
