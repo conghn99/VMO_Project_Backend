@@ -11,6 +11,7 @@ import com.example.vmo_project.repository.PersonRepository;
 import com.example.vmo_project.request.InsertPersonRequest;
 import com.example.vmo_project.request.UpdatePersonRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PersonService {
     private final PersonRepository personRepository;
     private final ApartmentRepository apartmentRepository;
@@ -48,8 +50,10 @@ public class PersonService {
         }));
     }
 
-    public List<PersonDto> getByKeyword(String keyword) {
-        return personRepository.findByNameOrEmailOrApartment(keyword)
+    public List<PersonDto> getByKeyword(String keyword, String apartment) {
+        log.info("Apartment: {}", apartment);
+        Apartment apartment1 = apartmentRepository.findByApartmentNumber(apartment);
+        return personRepository.findByNameOrEmailOrApartment(keyword, apartment1)
                 .stream()
                 .map(PersonDto::new)
                 .toList();

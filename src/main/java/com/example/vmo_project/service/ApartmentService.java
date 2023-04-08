@@ -38,7 +38,7 @@ public class ApartmentService {
 
     // Lấy danh sách các căn hộ theo keyword
     public List<ApartmentDto> getByApartmentNumber(String num) {
-        return apartmentRepository.findByApartmentNumber(num)
+        return apartmentRepository.findAllByApartmentNumber(num)
                 .stream()
                 .map(ApartmentDto::new)
                 .toList();

@@ -95,10 +95,10 @@ public class PersonRepositoryTest {
         personRepository.saveAll(List.of(person1, person2, person3, person4, person5));
 
         // Test
-        List<Person> result1 = personRepository.findByNameOrEmailOrApartment("ong");
-        List<Person> result2 = personRepository.findByNameOrEmailOrApartment("quy@");
-        List<Person> result3 = personRepository.findByNameOrEmailOrApartment("101");
-        List<Person> result4 = personRepository.findByNameOrEmailOrApartment("abc");
+        List<Person> result1 = personRepository.findByNameOrEmailOrApartment("ong", null);
+        List<Person> result2 = personRepository.findByNameOrEmailOrApartment("quy@", null);
+        List<Person> result3 = personRepository.findByNameOrEmailOrApartment(null, apartment1);
+        List<Person> result4 = personRepository.findByNameOrEmailOrApartment("abc", null);
 
         // Assert
         assertNotNull(result1);

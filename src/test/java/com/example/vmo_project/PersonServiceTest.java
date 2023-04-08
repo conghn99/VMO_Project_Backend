@@ -108,15 +108,15 @@ public class PersonServiceTest {
 
         when(personRepository.findAllByApartmentIdOrApartmentIsNull(1L))
                 .thenReturn(Arrays.asList(person1, person2, person3, person4, person5));
-        when(personRepository.findByNameOrEmailOrApartment("ong"))
+        when(personRepository.findByNameOrEmailOrApartment("ong", null))
                 .thenReturn(Arrays.asList(person1, person2));
-        when(personRepository.findByNameOrEmailOrApartment("quy@"))
+        when(personRepository.findByNameOrEmailOrApartment("quy@", null))
                 .thenReturn(Arrays.asList(person5));
 
         // Act
         List<PersonDto> result = personService.getAllNonActiveOrByApartmentId(1L);
-        List<PersonDto> resultSearch1 = personService.getByKeyword("ong");
-        List<PersonDto> resultSearch2 = personService.getByKeyword("quy@");
+        List<PersonDto> resultSearch1 = personService.getByKeyword("ong", null);
+        List<PersonDto> resultSearch2 = personService.getByKeyword("quy@", null);
 
         // Assert
         assertNotNull(resultSearch1);

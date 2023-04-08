@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
     @Query("select a from Apartment a where lower(a.apartmentNumber) like lower(concat('%', ?1, '%'))")
-    List<Apartment> findByApartmentNumber(String number);
+    List<Apartment> findAllByApartmentNumber(String number);
 
     Apartment findByArea(Double area);
+
+    Apartment findByApartmentNumber(String a);
 }

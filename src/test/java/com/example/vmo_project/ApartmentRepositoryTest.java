@@ -41,9 +41,9 @@ public class ApartmentRepositoryTest {
         apartmentRepository.save(apartment2);
 
         // Test
-        List<Apartment> result1 = apartmentRepository.findByApartmentNumber("10");
-        List<Apartment> result2 = apartmentRepository.findByApartmentNumber("101");
-        List<Apartment> result3 = apartmentRepository.findByApartmentNumber("200");
+        List<Apartment> result1 = apartmentRepository.findAllByApartmentNumber("10");
+        List<Apartment> result2 = apartmentRepository.findAllByApartmentNumber("101");
+        List<Apartment> result3 = apartmentRepository.findAllByApartmentNumber("200");
 
         // Assert
         assertNotNull(result1);

@@ -32,8 +32,10 @@ public class PersonController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> getPersonByKeyword(@RequestParam String keyword) {
-        return ResponseEntity.ok(personService.getByKeyword(keyword));
+    public ResponseEntity<?> getPersonByKeyword(
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @RequestParam(name = "apartment", required = false) String apartment) {
+        return ResponseEntity.ok(personService.getByKeyword(keyword, apartment));
     }
 
     @PostMapping("")

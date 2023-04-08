@@ -53,9 +53,9 @@ public class ApartmentServiceTest {
                 .thenReturn(java.util.Optional.ofNullable(apartments.get(2)));
         when(apartmentRepository.findById(4L))
                 .thenReturn(java.util.Optional.ofNullable(apartments.get(3)));
-        when(apartmentRepository.findByApartmentNumber("10"))
+        when(apartmentRepository.findAllByApartmentNumber("10"))
                 .thenReturn(apartments.stream().filter(a -> a.getApartmentNumber().contains("10")).toList());
-        when(apartmentRepository.findByApartmentNumber("101"))
+        when(apartmentRepository.findAllByApartmentNumber("101"))
                 .thenReturn(apartments.stream().filter(a -> a.getApartmentNumber().contains("101")).toList());
 
         // Act
