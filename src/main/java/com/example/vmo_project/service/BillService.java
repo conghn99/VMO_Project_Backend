@@ -13,7 +13,9 @@ import com.example.vmo_project.repository.FeeTypeRepository;
 import com.example.vmo_project.repository.PersonRepository;
 import com.example.vmo_project.request.InsertBillRequest;
 import com.example.vmo_project.request.UpdateBillRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -114,19 +116,21 @@ public class BillService {
         }
     }
 
-//    public void testSendMail() {
-//        List<Bill> unpaidBill = billRepository.findAll()
-//                .stream()
-//                .filter(bill -> !bill.isStatus())
-//                .toList();
-//        Person person = personRepository.findById(23L).orElse(null);
-//        for (Bill bill : unpaidBill) {
-//            if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-//                double total = calcUnpaidBill(bill);
-//                mailService.sendEmail(person, bill.getApartment(), bill, total);
-//            }
-//        }
-//    }
+//    @Scheduled(cron = "0 8 14 * * *")
+//    @Transactional
+    public void testSendMail() {
+        List<Bill> unpaidBill = billRepository.findAll()
+                .stream()
+                .filter(bill -> !bill.isStatus())
+                .toList();
+        Person person = personRepository.findById(23L).orElse(null);
+        for (Bill bill : unpaidBill) {
+            if (bill.getApartment().getId().equals(person.getApartment().getId())) {
+                double total = calcUnpaidBill(bill);
+                mailService.sendEmail(person, bill.getApartment(), bill, total);
+            }
+        }
+    }
 
     // Tính tổng phí phải trả của từng hóa đơn
     private double calcUnpaidBill(Bill unpaidBill) {

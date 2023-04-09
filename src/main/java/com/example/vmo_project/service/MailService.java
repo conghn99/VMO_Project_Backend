@@ -2,7 +2,6 @@ package com.example.vmo_project.service;
 
 import com.example.vmo_project.entity.Apartment;
 import com.example.vmo_project.entity.Bill;
-import com.example.vmo_project.entity.FeeType;
 import com.example.vmo_project.entity.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,8 +16,13 @@ public class MailService {
     public void sendEmail(Person person, Apartment apartment, Bill bill, double amount) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        StringBuilder subjectBuilder = new StringBuilder("Thông báo đóng tiền phí sinh hoạt căn hộ ");
-        String subject = subjectBuilder.append(apartment.getApartmentNumber()).toString();
+        StringBuilder subjectBuilder = new StringBuilder("Thông báo đóng tiền phí sinh hoạt tháng ");
+        String subject = subjectBuilder.append(bill.getBillDate().getMonthValue())
+                .append("/")
+                .append(bill.getBillDate().getYear())
+                .append(" của căn hộ ")
+                .append(apartment.getApartmentNumber())
+                .toString();
 
         StringBuilder bodyBuilder = new StringBuilder("Kính gửi ");
         String body = bodyBuilder.append(person.getName())
