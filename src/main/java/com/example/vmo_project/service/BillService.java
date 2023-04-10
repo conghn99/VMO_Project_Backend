@@ -118,19 +118,19 @@ public class BillService {
 
 //    @Scheduled(cron = "0 8 14 * * *")
 //    @Transactional
-    public void testSendMail() {
-        List<Bill> unpaidBill = billRepository.findAll()
-                .stream()
-                .filter(bill -> !bill.isStatus())
-                .toList();
-        Person person = personRepository.findById(23L).orElse(null);
-        for (Bill bill : unpaidBill) {
-            if (bill.getApartment().getId().equals(person.getApartment().getId())) {
-                double total = calcUnpaidBill(bill);
-                mailService.sendEmail(person, bill.getApartment(), bill, total);
-            }
-        }
-    }
+//    public void testSendMail() {
+//        List<Bill> unpaidBill = billRepository.findAll()
+//                .stream()
+//                .filter(bill -> !bill.isStatus())
+//                .toList();
+//        Person person = personRepository.findById(23L).orElse(null);
+//        for (Bill bill : unpaidBill) {
+//            if (bill.getApartment().getId().equals(person.getApartment().getId())) {
+//                double total = calcUnpaidBill(bill);
+//                mailService.sendEmail(person, bill.getApartment(), bill, total);
+//            }
+//        }
+//    }
 
     // Tính tổng phí phải trả của từng hóa đơn
     private double calcUnpaidBill(Bill unpaidBill) {

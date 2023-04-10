@@ -30,7 +30,7 @@ public class Person {
     private String email;
 
 //    @Digits(integer = 11, fraction = 0, message= "invalid phone number")
-    @Size(min = 9, max = 11, message = "the length of phone number is invalid")
+    @Size(min = 9, max = 18, message = "the length of phone number is invalid")
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
